@@ -1,6 +1,7 @@
 package za.ac.cput.hospitalmanagementsystem.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import za.ac.cput.hospitalmanagementsystem.domain.Ward;
 import za.ac.cput.hospitalmanagementsystem.repository.WardRepository;
 import za.ac.cput.hospitalmanagementsystem.services.WardService;
@@ -11,6 +12,7 @@ import java.util.List;
 /**
  * Created by student on 2015/05/03.
  */
+@Service
 public class WardServiceImpl implements WardService {
     @Autowired
     WardRepository repository;

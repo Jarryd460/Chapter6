@@ -22,37 +22,37 @@ import java.util.List;
 @WebAppConfiguration
 public class TestCrudAppointment {
 
-    private int id;
+    private Long id;
     private Patient patient1;
 
     @Autowired
     AppointmentRepository repository;
     @Test
     public void testCreate() throws Exception {
-        List<Appointment> appointmentList = new ArrayList<Appointment>();
-        patient1 = new Patient.Builder(5).firstName("Jarryd").lastName("Deane").age(22).contactNumber(123456789).address("My Street").build();
-        Appointment appointment = new Appointment.Builder(1).patient(patient1).build();
+        patient1 = new Patient.Builder(new Long(5)).firstName("Jarryd").lastName("Deane").age(22).contactNumber(123456789).address("My Street").build();
+        Appointment appointment = new Appointment.Builder(new Long(1)).patient(patient1).build();
         repository.save(appointment);
         id = appointment.getId();
         Assert.assertNotNull(appointment.getId());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCreate")
     public void testRead() throws Exception {
         Appointment appointment = repository.findOne(id);
         Assert.assertEquals(patient1 ,appointment.getPatient());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testRead")
     public void testUpdate() throws Exception {
         Appointment appointment = repository.findOne(id);
-        Appointment newAppointment = new Appointment.Builder(2).patient(patient1).build();
+        Patient patient2 = new Patient.Builder(new Long(10)).firstName("Peter").lastName("Pan").contactNumber(987654321).address("Your Street").build();
+        Appointment newAppointment = new Appointment.Builder(appointment.getId()).patient(patient2).build();
         repository.save(newAppointment);
-        Assert.assertEquals(2, appointment.getId());
-        Assert.assertEquals(patient1, appointment.getPatient());
+        Assert.assertEquals(appointment.getId(), newAppointment.getId());
+        Assert.assertEquals(patient2, newAppointment.getPatient());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testUpdate")
     public void testDelete() throws Exception {
         Appointment appointment = repository.findOne(id);
         repository.delete(appointment);

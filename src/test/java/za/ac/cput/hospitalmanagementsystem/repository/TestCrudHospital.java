@@ -28,29 +28,28 @@ public class TestCrudHospital {
     HospitalRepository repository;
     @Test
     public void testCreate() throws Exception {
-        List<Hospital> hospitalList = new ArrayList<Hospital>();
         Hospital hospital = new Hospital.Builder("hospital1").address("My street").build();
         repository.save(hospital);
         name = hospital.getName();
         Assert.assertNotNull(hospital.getName());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCreate")
     public void testRead() throws Exception {
         Hospital hospital = repository.findOne(name);
         Assert.assertEquals("My street",hospital.getAddress());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testRead")
     public void testUpdate() throws Exception {
         Hospital hospital = repository.findOne(name);
-        Hospital newHospital = new Hospital.Builder("hospital2").address("Your street").build();
+        Hospital newHospital = new Hospital.Builder(hospital.getName()).address("Your street").build();
         repository.save(newHospital);
-        Assert.assertEquals("hospital2", hospital.getName());
-        Assert.assertEquals("Your street", hospital.getAddress());
+        Assert.assertEquals(hospital.getName(), newHospital.getName());
+        Assert.assertEquals("Your street", newHospital.getAddress());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testUpdate")
     public void testDelete() throws Exception {
         Hospital hospital = repository.findOne(name);
         repository.delete(hospital);

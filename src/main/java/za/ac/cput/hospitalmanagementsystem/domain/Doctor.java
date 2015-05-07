@@ -12,7 +12,7 @@ public abstract class Doctor implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected int id;
+    protected Long id;
     protected String firstName;
     protected String lastName;
     protected String specialization;
@@ -22,7 +22,7 @@ public abstract class Doctor implements Serializable {
 
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -42,4 +42,29 @@ public abstract class Doctor implements Serializable {
         return appointments;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Doctor)) return false;
+
+        Doctor doctor = (Doctor) o;
+
+        return !(id != null ? !id.equals(doctor.id) : doctor.id != null);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", specialization='" + specialization + '\'' +
+                ", appointments=" + appointments +
+                '}';
+    }
 }

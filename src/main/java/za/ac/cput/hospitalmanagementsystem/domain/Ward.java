@@ -12,7 +12,7 @@ public class Ward implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private int capacity;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="ward_id")
@@ -28,7 +28,7 @@ public class Ward implements Serializable{
         this.patients = builder.patients;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -41,11 +41,11 @@ public class Ward implements Serializable{
     }
 
     public static class Builder {
-        private int id;
+        private Long id;
         private int capacity;
         private List<Patient> patients;
 
-        public Builder(int id) {
+        public Builder(Long id) {
             this.id = id;
         }
 
@@ -70,4 +70,20 @@ public class Ward implements Serializable{
             return new Ward(this);
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ward)) return false;
+
+        Ward ward = (Ward) o;
+
+        return !(id != null ? !id.equals(ward.id) : ward.id != null);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
 }

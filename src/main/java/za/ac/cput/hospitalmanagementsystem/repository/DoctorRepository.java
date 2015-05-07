@@ -6,7 +6,7 @@ import za.ac.cput.hospitalmanagementsystem.domain.Doctor;
 /**
  * Created by student on 2015/05/01.
  */
-public interface DoctorRepository extends CrudRepository<Doctor, Integer> {
+public interface DoctorRepository extends CrudRepository<Doctor, Long> {
 
     public Doctor findByCode(String code);
 

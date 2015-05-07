@@ -23,13 +23,13 @@ public class Surgeon extends Doctor implements Serializable {
     }
 
     public static class Builder {
-        private int id;
+        private Long id;
         private String firstName;
         private String lastName;
         private String specialization = "Surgeon";
         private List<Appointment> appointments;
 
-        public Builder(int id) {
+        public Builder(Long id) {
             this.id = id;
         }
 
@@ -61,4 +61,20 @@ public class Surgeon extends Doctor implements Serializable {
             return new Surgeon(this);
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Surgeon)) return false;
+
+        Surgeon surgeon = (Surgeon) o;
+
+        return !(id != null ? !id.equals(surgeon.id) : surgeon.id != null);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
 }

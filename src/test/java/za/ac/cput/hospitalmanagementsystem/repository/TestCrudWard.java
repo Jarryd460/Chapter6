@@ -21,35 +21,34 @@ import java.util.List;
 @WebAppConfiguration
 public class TestCrudWard {
 
-    private int id;
+    private Long id;
 
     @Autowired
     WardRepository repository;
     @Test
     public void testCreate() throws Exception {
-        List<Ward> wardList = new ArrayList<Ward>();
-        Ward ward = new Ward.Builder(1).capacity(20).build();
+        Ward ward = new Ward.Builder(new Long(1)).capacity(20).build();
         repository.save(ward);
         id = ward.getId();
         Assert.assertNotNull(ward.getId());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCreate")
     public void testRead() throws Exception {
         Ward ward = repository.findOne(id);
         Assert.assertEquals(20,ward.getCapacity());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testRead")
     public void testUpdate() throws Exception {
         Ward ward = repository.findOne(id);
-        Ward newWard = new Ward.Builder(2).capacity(23).build();
+        Ward newWard = new Ward.Builder(ward.getId()).capacity(23).build();
         repository.save(newWard);
-        Assert.assertEquals(23, ward.getCapacity());
-        Assert.assertEquals(2, ward.getId());
+        Assert.assertEquals(ward.getId(), newWard.getId());
+        Assert.assertEquals(23, newWard.getCapacity());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testUpdate")
     public void testDelete() throws Exception {
         Ward ward = repository.findOne(id);
         repository.delete(ward);

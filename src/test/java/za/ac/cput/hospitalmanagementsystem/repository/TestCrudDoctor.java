@@ -22,35 +22,34 @@ import java.util.List;
 @WebAppConfiguration
 public class TestCrudDoctor {
 
-    private int id;
+    private Long id;
 
     @Autowired
     DoctorRepository repository;
     @Test
     public void testCreate() throws Exception {
-        List<Doctor> doctorList = new ArrayList<Doctor>();
-        Doctor doctor = new Surgeon.Builder(1).firstName("Oliver").lastName("Khan").build();
+        Doctor doctor = new Surgeon.Builder(new Long(1)).firstName("Oliver").lastName("Khan").build();
         repository.save(doctor);
         id = doctor.getId();
         Assert.assertNotNull(doctor.getId());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCreate")
     public void testRead() throws Exception {
         Doctor doctor = repository.findOne(id);
         Assert.assertEquals("Oliver",doctor.getFirstName());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testRead")
     public void testUpdate() throws Exception {
         Doctor doctor = repository.findOne(id);
-        Doctor newDoctor = new Surgeon.Builder(2).firstName("Ronald").lastName("Macdonald").build();
+        Doctor newDoctor = new Surgeon.Builder(doctor.getId()).firstName("Ronald").lastName("Macdonald").build();
         repository.save(newDoctor);
-        Assert.assertEquals("Ronald", doctor.getFirstName());
-        Assert.assertEquals("Macdonald", doctor.getLastName());
+        Assert.assertEquals(newDoctor.getId(), doctor.getId());
+        Assert.assertEquals("Macdonald", newDoctor.getLastName());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testUpdate")
     public void testDelete() throws Exception {
         Doctor doctor = repository.findOne(id);
         repository.delete(doctor);

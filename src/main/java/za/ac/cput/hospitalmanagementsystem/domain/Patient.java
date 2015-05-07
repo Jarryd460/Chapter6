@@ -11,7 +11,7 @@ public class Patient implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private String firstName;
     private String lastName;
     @Embedded
@@ -35,8 +35,12 @@ public class Patient implements Serializable{
         this.address = builder.address;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -65,7 +69,7 @@ public class Patient implements Serializable{
 
     public static class Builder {
 
-        private int id;
+        private Long id;
         private String firstName;
         private String lastName;
         private Sex sex;
@@ -73,7 +77,7 @@ public class Patient implements Serializable{
         private int contactNumber;
         private String address;
 
-        public Builder(int id) {
+        public Builder(Long id) {
             this.id = id;
         }
 
@@ -123,4 +127,31 @@ public class Patient implements Serializable{
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Patient)) return false;
+
+        Patient patient = (Patient) o;
+
+        return !(id != null ? !id.equals(patient.id) : patient.id != null);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", sex=" + sex +
+                ", age=" + age +
+                ", contactNumber=" + contactNumber +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

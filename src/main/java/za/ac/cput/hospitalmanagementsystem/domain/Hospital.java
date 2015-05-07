@@ -86,4 +86,29 @@ public class Hospital implements Serializable {
         }
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Hospital)) return false;
+
+        Hospital hospital = (Hospital) o;
+
+        return !(name != null ? !name.equals(hospital.name) : hospital.name != null);
+    }
+
+    @Override
+    public int hashCode() {
+        return name != null ? name.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Hospital{" +
+                "name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", wards=" + wards +
+                ", doctors=" + doctors +
+                '}';
+    }
 }

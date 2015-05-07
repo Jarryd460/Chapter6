@@ -39,4 +39,11 @@ public class Bill implements Serializable {
             return new Bill(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "amount=" + amount +
+                '}';
+    }
 }

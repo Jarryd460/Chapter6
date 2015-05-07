@@ -21,35 +21,34 @@ import java.util.List;
 @WebAppConfiguration
 public class TestCrudPatient {
 
-    private int id;
+    private Long id;
 
     @Autowired
     PatientRepository repository;
     @Test
-    public void testCreate() throws Exception {
-        List<Patient> patientList = new ArrayList<Patient>();
-        Patient patient = new Patient.Builder(5).firstName("Jarryd").lastName("Deane").age(22).contactNumber(123456789).address("My Street").build();
+    public void testCreate() throws Exception {        
+        Patient patient = new Patient.Builder(new Long(5)).firstName("Jarryd").lastName("Deane").age(22).contactNumber(123456789).address("My Street").build();
         repository.save(patient);
         id = patient.getId();
         Assert.assertNotNull(patient.getId());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testCreate")
     public void testRead() throws Exception {
         Patient patient = repository.findOne(id);
         Assert.assertEquals("Jarryd",patient.getFirstName());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testRead")
     public void testUpdate() throws Exception {
         Patient patient = repository.findOne(id);
-        Patient newPatient = new Patient.Builder(10).firstName("Peter").lastName("Pan").contactNumber(987654321).address("Your Street").build();
+        Patient newPatient = new Patient.Builder(patient.getId()).firstName("Peter").lastName("Pan").contactNumber(987654321).address("Your Street").build();
         repository.save(newPatient);
-        Assert.assertEquals(10, patient.getId());
-        Assert.assertEquals("Peter", patient.getFirstName());
+        Assert.assertEquals(patient.getId(), newPatient.getId());
+        Assert.assertEquals("Peter", newPatient.getFirstName());
     }
 
-    @Test
+    @Test(dependsOnMethods = "testUpdate")
     public void testDelete() throws Exception {
         Patient patient = repository.findOne(id);
         repository.delete(patient);

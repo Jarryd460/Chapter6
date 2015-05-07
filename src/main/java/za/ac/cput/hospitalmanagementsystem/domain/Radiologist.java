@@ -23,13 +23,13 @@ public class Radiologist extends Doctor implements Serializable {
     }
 
     public static class Builder {
-        private int id;
+        private Long id;
         private String firstName;
         private String lastName;
         private String specialization = "Radiologist";
         private List<Appointment> appointments;
 
-        public Builder(int id) {
+        public Builder(Long id) {
             this.id = id;
         }
 
@@ -61,4 +61,20 @@ public class Radiologist extends Doctor implements Serializable {
             return new Radiologist(this);
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Radiologist)) return false;
+
+        Radiologist radiologist = (Radiologist) o;
+
+        return !(id != null ? !id.equals(radiologist.id) : radiologist.id != null);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+
 }
