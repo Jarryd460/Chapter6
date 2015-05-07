@@ -34,13 +34,13 @@ public class TestCrudHospital {
         Assert.assertNotNull(hospital.getName());
     }
 
-    @Test(dependsOnMethods = "testCreate")
+    @Test//(dependsOnMethods = "testCreate")
     public void testRead() throws Exception {
         Hospital hospital = repository.findOne(name);
         Assert.assertEquals("My street",hospital.getAddress());
     }
 
-    @Test(dependsOnMethods = "testRead")
+    @Test//(dependsOnMethods = "testRead")
     public void testUpdate() throws Exception {
         Hospital hospital = repository.findOne(name);
         Hospital newHospital = new Hospital.Builder(hospital.getName()).address("Your street").build();
@@ -49,7 +49,7 @@ public class TestCrudHospital {
         Assert.assertEquals("Your street", newHospital.getAddress());
     }
 
-    @Test(dependsOnMethods = "testUpdate")
+    @Test//(dependsOnMethods = "testUpdate")
     public void testDelete() throws Exception {
         Hospital hospital = repository.findOne(name);
         repository.delete(hospital);

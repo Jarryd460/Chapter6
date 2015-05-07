@@ -21,20 +21,21 @@ public class testAppointment {
 
     @Before
     public void setUp() {
-        patient1 = new Patient.Builder(5).firstName("Jarryd").lastName("Deane").age(22).sex(Sex.Male).contactNumber(123456789).address("My Street").build();
-        patient2 = new Patient.Builder(10).firstName("Peter").lastName("Pan").sex(Sex.Male).contactNumber(987654321).address("Your Street").build();
+        patient1 = new Patient.Builder(new Long(5)).firstName("Jarryd").lastName("Deane").age(22).sex(Sex.Male).contactNumber(123456789).address("My Street").build();
+        patient2 = new Patient.Builder(new Long(10)).firstName("Peter").lastName("Pan").sex(Sex.Male).contactNumber(987654321).address("Your Street").build();
 
         bill1 = new Bill.Builder(10000).build();
         bill2 = new Bill.Builder(25000).build();
 
-        appointment1 = new Appointment.Builder(1).patient(patient1).bill(bill1).build();
-        appointment2 = new Appointment.Builder(2).patient(patient2).bill(bill2).build();
+        appointment1 = new Appointment.Builder(new Long(1)).patient(patient1).bill(bill1).build();
+        appointment2 = new Appointment.Builder(new Long(2)).patient(patient2).bill(bill2).build();
         appointment3 = appointment1;
     }
 
     @Test
     public void testAppointmentId() {
-        Assert.assertEquals(1, appointment1.getId());
+        Long id = new Long(1);
+        Assert.assertEquals(id, appointment1.getId());
     }
 
     @Test

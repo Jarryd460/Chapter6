@@ -15,14 +15,15 @@ public class testPatient {
 
     @Before
     public void setUp() {
-        patient1 = new Patient.Builder(5).firstName("Jarryd").lastName("Deane").age(22).sex(Sex.Male).contactNumber(123456789).address("My Street").build();
-        patient2 = new Patient.Builder(10).firstName("Peter").lastName("Pan").sex(Sex.Male).contactNumber(987654321).address("Your Street").build();
+        patient1 = new Patient.Builder(new Long(5)).firstName("Jarryd").lastName("Deane").age(22).sex(Sex.Male).contactNumber(123456789).address("My Street").build();
+        patient2 = new Patient.Builder(new Long(10)).firstName("Peter").lastName("Pan").sex(Sex.Male).contactNumber(987654321).address("Your Street").build();
         patient3 = patient1;
     }
 
     @Test
     public void testPatientId() {
-        Assert.assertEquals(5, patient1.getId());
+        Long id = new Long(5);
+        Assert.assertEquals(id, patient1.getId());
     }
 
     @Test

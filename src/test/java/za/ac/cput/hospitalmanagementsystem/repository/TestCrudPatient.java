@@ -33,13 +33,13 @@ public class TestCrudPatient {
         Assert.assertNotNull(patient.getId());
     }
 
-    @Test(dependsOnMethods = "testCreate")
+    @Test//(dependsOnMethods = "testCreate")
     public void testRead() throws Exception {
         Patient patient = repository.findOne(id);
         Assert.assertEquals("Jarryd",patient.getFirstName());
     }
 
-    @Test(dependsOnMethods = "testRead")
+    @Test//(dependsOnMethods = "testRead")
     public void testUpdate() throws Exception {
         Patient patient = repository.findOne(id);
         Patient newPatient = new Patient.Builder(patient.getId()).firstName("Peter").lastName("Pan").contactNumber(987654321).address("Your Street").build();
@@ -48,7 +48,7 @@ public class TestCrudPatient {
         Assert.assertEquals("Peter", newPatient.getFirstName());
     }
 
-    @Test(dependsOnMethods = "testUpdate")
+    @Test//(dependsOnMethods = "testUpdate")
     public void testDelete() throws Exception {
         Patient patient = repository.findOne(id);
         repository.delete(patient);

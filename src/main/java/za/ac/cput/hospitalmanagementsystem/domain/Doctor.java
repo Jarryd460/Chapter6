@@ -8,7 +8,7 @@ import java.util.List;
  * Created by student on 2015/04/17.
  */
 @Entity
-public abstract class Doctor implements Serializable {
+public class Doctor implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,6 +20,14 @@ public abstract class Doctor implements Serializable {
 
     public Doctor() {
 
+    }
+
+    public Doctor(Builder builder) {
+        this.id = builder.id;
+        this.firstName = builder.firstName;
+        this.lastName = builder.lastName;
+        this.specialization = builder.specialization;
+        this.appointments = builder.appointments;
     }
 
     public Long getId() {
@@ -40,6 +48,46 @@ public abstract class Doctor implements Serializable {
 
     public List<Appointment> getAppointments() {
         return appointments;
+    }
+
+    public static class Builder {
+        private Long id;
+        private String firstName;
+        private String lastName;
+        private String specialization = "Doctor";
+        private List<Appointment> appointments;
+
+        public Builder(Long id) {
+            this.id = id;
+        }
+
+        public Builder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder appointments(List<Appointment> appointments) {
+            this.appointments = appointments;
+            return this;
+        }
+
+        public Builder copy(Doctor Doctor) {
+            this.id = Doctor.id;
+            this.firstName = Doctor.firstName;
+            this.lastName = Doctor.lastName;
+            this.specialization = Doctor.specialization;
+            this.appointments = Doctor.appointments;
+            return this;
+        }
+
+        public Doctor build() {
+            return new Doctor(this);
+        }
     }
 
     @Override

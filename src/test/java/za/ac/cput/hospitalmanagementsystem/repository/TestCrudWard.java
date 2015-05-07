@@ -33,13 +33,13 @@ public class TestCrudWard {
         Assert.assertNotNull(ward.getId());
     }
 
-    @Test(dependsOnMethods = "testCreate")
+    @Test//(dependsOnMethods = "testCreate")
     public void testRead() throws Exception {
         Ward ward = repository.findOne(id);
         Assert.assertEquals(20,ward.getCapacity());
     }
 
-    @Test(dependsOnMethods = "testRead")
+    @Test//(dependsOnMethods = "testRead")
     public void testUpdate() throws Exception {
         Ward ward = repository.findOne(id);
         Ward newWard = new Ward.Builder(ward.getId()).capacity(23).build();
@@ -48,7 +48,7 @@ public class TestCrudWard {
         Assert.assertEquals(23, newWard.getCapacity());
     }
 
-    @Test(dependsOnMethods = "testUpdate")
+    @Test//(dependsOnMethods = "testUpdate")
     public void testDelete() throws Exception {
         Ward ward = repository.findOne(id);
         repository.delete(ward);

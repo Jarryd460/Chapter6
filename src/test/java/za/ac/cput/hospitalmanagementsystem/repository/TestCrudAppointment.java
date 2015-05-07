@@ -36,13 +36,13 @@ public class TestCrudAppointment {
         Assert.assertNotNull(appointment.getId());
     }
 
-    @Test(dependsOnMethods = "testCreate")
+    @Test//(dependsOnMethods = "testCreate")
     public void testRead() throws Exception {
         Appointment appointment = repository.findOne(id);
         Assert.assertEquals(patient1 ,appointment.getPatient());
     }
 
-    @Test(dependsOnMethods = "testRead")
+    @Test//(dependsOnMethods = "testRead")r
     public void testUpdate() throws Exception {
         Appointment appointment = repository.findOne(id);
         Patient patient2 = new Patient.Builder(new Long(10)).firstName("Peter").lastName("Pan").contactNumber(987654321).address("Your Street").build();
@@ -52,7 +52,7 @@ public class TestCrudAppointment {
         Assert.assertEquals(patient2, newAppointment.getPatient());
     }
 
-    @Test(dependsOnMethods = "testUpdate")
+    @Test//(dependsOnMethods = "testUpdate")
     public void testDelete() throws Exception {
         Appointment appointment = repository.findOne(id);
         repository.delete(appointment);

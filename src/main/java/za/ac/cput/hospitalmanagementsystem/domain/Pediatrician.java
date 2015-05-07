@@ -77,4 +77,15 @@ public class Pediatrician extends Doctor implements Serializable {
         return id != null ? id.hashCode() : 0;
     }
 
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", specialization='" + specialization + '\'' +
+                ", appointments=" + appointments +
+                '}';
+    }
+
 }

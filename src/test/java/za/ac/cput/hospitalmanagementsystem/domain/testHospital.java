@@ -28,10 +28,10 @@ public class testHospital {
         listWards1 = new ArrayList<Ward>();
         listWards2 = new ArrayList<Ward>();
 
-        ward1 = new Ward.Builder(1).capacity(20).build();
-        ward2 = new Ward.Builder(2).capacity(13).build();
-        ward3 = new Ward.Builder(3).capacity(21).build();
-        ward4 = new Ward.Builder(4).capacity(17).build();
+        ward1 = new Ward.Builder(new Long(1)).capacity(20).build();
+        ward2 = new Ward.Builder(new Long(5)).capacity(13).build();
+        ward3 = new Ward.Builder(new Long(3)).capacity(21).build();
+        ward4 = new Ward.Builder(new Long(4)).capacity(17).build();
 
         listWards1.add(ward1);
         listWards1.add(ward2);
